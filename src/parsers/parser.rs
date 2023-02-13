@@ -1,3 +1,5 @@
+mod expr;
+
 use nom::{
     branch::alt,
     bytes::complete::tag,
@@ -8,14 +10,7 @@ use nom::{
     IResult,
 };
 
-#[derive(Debug, Clone)]
-pub enum Expr {
-    Num(f64),
-    Add(Box<Expr>, Box<Expr>),
-    Sub(Box<Expr>, Box<Expr>),
-    Mul(Box<Expr>, Box<Expr>),
-    Div(Box<Expr>, Box<Expr>),
-}
+use expr::Expr;
 
 fn parse_number(input: &str) -> IResult<&str, Expr> {
     map(recognize(pair(opt(tag("-")), digit1)), |s: &str| {
