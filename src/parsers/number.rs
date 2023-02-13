@@ -2,9 +2,9 @@ use crate::parsers::expr::Expr;
 
 use nom::{
     bytes::complete::tag,
-    character::complete::{digit1},
+    character::complete::digit1,
     combinator::{map, opt, recognize},
-    sequence::{pair},
+    sequence::pair,
     IResult,
 };
 
