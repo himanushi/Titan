@@ -1,5 +1,5 @@
-mod parser;
-use parser::parse_expression;
+mod parsers;
+use parsers::parser::parse_expression;
 
 fn main() {
     let input = "1 + 2 * 3 - 4 / 2";
