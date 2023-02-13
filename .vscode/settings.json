@@ -1,0 +1,16 @@
+{
+  "editor.defaultFormatter": "rust-lang.rust",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".rs",
+        "isAsync": true,
+        "cmd": "cargo clippy --fix"
+      }
+    ]
+  }
+}
