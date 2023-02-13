@@ -43,7 +43,7 @@ fn parse_term(input: &str) -> IResult<&str, Expr> {
     )(rest)
 }
 
-fn parse_expression(input: &str) -> IResult<&str, Expr> {
+pub fn parse_expression(input: &str) -> IResult<&str, Expr> {
     let (rest, lhs) = parse_term(input)?;
     fold_many0(
         pair(alt((tag("+"), tag("-"))), parse_term),
