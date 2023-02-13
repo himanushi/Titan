@@ -1,8 +1,8 @@
-use crate::parser::{expr, Expr};
+use crate::parser::{Expr, parse_expression};
 use nom::Finish;
 
 pub fn calculate(input: &str) -> Result<f64, String> {
-    let result = expr(input).finish();
+    let result = parse_expression(input).finish();
 
     match result {
         Ok((_, ast)) => Ok(eval(&ast)),

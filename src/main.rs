@@ -1,4 +1,7 @@
-use crate::calc::calculate;
+mod calc;
+mod parser;
+
+use calc::calculate;
 
 fn main() {
     match calculate("1 + 2 * 3 - 4 / 2") {
