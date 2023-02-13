@@ -1,4 +1,6 @@
-use crate::parser::{Expr, parse_expression};
+mod parsers;
+
+use crate::parsers::{parse_expression, Expr};
 use nom::Finish;
 
 pub fn calculate(input: &str) -> Result<f64, String> {

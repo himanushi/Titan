@@ -1,6 +1,4 @@
 mod calc;
-mod parser;
-
 use calc::calculate;
 
 fn main() {
