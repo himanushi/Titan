@@ -4,10 +4,8 @@ use crate::parsers::factor::parse_factor;
 use nom::{
     branch::alt,
     bytes::complete::tag,
-    character::complete::{char, space0},
-    combinator::{map, value},
     multi::fold_many0,
-    sequence::{delimited, pair},
+    sequence::{pair},
     IResult,
 };
 
