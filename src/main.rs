@@ -1,13 +1,8 @@
-mod parser;
-use parser::parse_expression;
+use crate::calc::calculate;
 
 fn main() {
-    let input = "1 + 2 * 3 - 4 / 2";
-
-    // パーサーの実行
-    let (rest, result) = parse_expression(&input).unwrap();
-
-    // パース結果の表示
-    println!("Parsed successfully: {:?}", result);
-    println!("Remaining input: {:?}", rest);
+    match calculate("1 + 2 * 3 - 4 / 2") {
+        Ok(result) => println!("Result: {}", result),
+        Err(msg) => eprintln!("Error: {}", msg),
+    }
 }
