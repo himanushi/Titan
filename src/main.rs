@@ -1,5 +1,8 @@
-mod calc;
-use calc::calculate;
+mod calc {
+    pub mod calc;
+}
+
+use calc::calc::calculate;
 
 fn main() {
     match calculate("1 + 2 * 3 - 4 / 2") {
