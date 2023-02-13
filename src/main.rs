@@ -1,8 +1,13 @@
-use calc::calculate;
+mod parser;
+use parser::parse_expression;
 
 fn main() {
-    match calculate("1 + 2 * 3 - 4 / 2") {
-        Ok(result) => println!("Result: {}", result),
-        Err(msg) => eprintln!("Error: {}", msg),
-    }
+    let input = "1 + 2 * 3 - 4 / 2";
+
+    // パーサーの実行
+    let (rest, result) = parse_expression(&input).unwrap();
+
+    // パース結果の表示
+    println!("Parsed successfully: {:?}", result);
+    println!("Remaining input: {:?}", rest);
 }
