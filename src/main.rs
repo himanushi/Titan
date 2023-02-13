@@ -84,3 +84,15 @@ fn main() {
     println!("Parsed successfully: {:?}", result);
     println!("Remaining input: {:?}", rest);
 }
+
+let (rest, result) = fold_many0(
+    pair(alt((tag("+"), tag("-"))), parse_term),
+    lhs,
+    |acc, (op, rhs)| match op {
+        "+" => Expr::Add(Box::new(acc), Box::new(rhs)),
+        "-" => Expr::Sub(Box::new(acc), Box::new(rhs)),
+        _ => unreachable!(),
+    },
+)(rest)?;
+
+let result = result as f64;
