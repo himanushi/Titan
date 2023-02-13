@@ -1,17 +1,28 @@
 use crate::parsers::expr::Expr;
 
 use nom::{
-    bytes::complete::tag,
-    character::complete::digit1,
+    bytes::complete::{tag, take_while_m_n},
+    character::complete::{char, digit1},
     combinator::{map, opt, recognize},
-    sequence::pair,
+    sequence::{pair, tuple},
     IResult,
 };
 
 pub fn parse_number(input: &str) -> IResult<&str, Expr> {
-    map(recognize(pair(opt(tag("-")), digit1)), |s: &str| {
-        Expr::Num(s.parse().unwrap())
-    })(input)
+    map(
+        recognize(tuple((
+            opt(char('-')),
+            digit1,
+            opt(tuple((
+                char('.'),
+                take_while_m_n(1, 20, |c: char| c.is_ascii_digit()),
+            ))),
+        ))),
+        |s: &str| match s.parse() {
+            Ok(num) => Expr::Num(num),
+            Err(_) => Expr::Float(s.parse().unwrap()),
+        },
+    )(input)
 }
 
 #[cfg(test)]
