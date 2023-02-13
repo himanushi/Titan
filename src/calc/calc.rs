@@ -1,7 +1,6 @@
-mod parsers
+mod parsers;
 
-use crate::parsers::expr::Expr;
-use crate::parsers::expression::parse_expression;
+use parsers::{parse_expression, Expr};
 use nom::Finish;
 
 pub fn calculate(input: &str) -> Result<f64, String> {
