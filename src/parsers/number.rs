@@ -1,11 +1,10 @@
 use crate::parsers::expr::Expr;
 
 use nom::{
-    branch::alt,
     bytes::complete::tag,
-    character::complete::{char, digit1},
+    character::complete::{digit1},
     combinator::{map, opt, recognize},
-    sequence::{delimited, pair, preceded, terminated, tuple},
+    sequence::{pair},
     IResult,
 };
 

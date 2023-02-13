@@ -4,11 +4,8 @@ use crate::parsers::number::parse_number;
 
 use nom::{
     branch::alt,
-    bytes::complete::tag,
-    character::complete::{char, digit1, multispace0},
-    combinator::{map, opt, recognize},
-    multi::fold_many0,
-    sequence::{delimited, pair, preceded, terminated, tuple},
+    character::complete::{char},
+    sequence::{delimited},
     IResult,
 };
 
