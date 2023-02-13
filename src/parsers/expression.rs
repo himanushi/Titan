@@ -1,7 +1,7 @@
 use crate::parsers::expr::Expr;
+use crate::parsers::factor::parse_factor;
 use crate::parsers::number::parse_number;
 use crate::parsers::term::parse_term;
-use crate::parsers::factor::parse_factor;
 
 use nom::{
     branch::alt,

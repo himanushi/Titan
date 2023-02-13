@@ -1,6 +1,6 @@
 use crate::parsers::expr::Expr;
-use crate::parsers::number::parse_number;
 use crate::parsers::expression::parse_expression;
+use crate::parsers::number::parse_number;
 
 use nom::{
     branch::alt,
