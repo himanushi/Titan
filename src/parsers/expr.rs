@@ -1,4 +1,4 @@
-#[derive(Debug, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Expr {
     Num(f64),
     Add(Box<Expr>, Box<Expr>),
