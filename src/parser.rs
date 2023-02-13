@@ -2,9 +2,9 @@ use nom::{
     branch::alt,
     bytes::complete::tag,
     character::complete::{char, digit1, multispace0},
-    combinator::{map, opt},
+    combinator::{map, opt, recognize},
     multi::fold_many0,
-    sequence::{delimited, pair, preceded, terminated, tuple, recognize},
+    sequence::{delimited, pair, preceded, terminated, tuple},
     IResult,
 };
 
