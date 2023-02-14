@@ -20,6 +20,15 @@ mod tests {
     }
 
     #[test]
+    fn test_expr_paren() {
+        let expr = Expr::Paren(Box::new(Expr::Add(
+            Box::new(Expr::Num(1.0)),
+            Box::new(Expr::Num(2.0)),
+        )));
+        assert_eq!(format!("{:?}", expr), "Paren(Add(Num(1.0), Num(2.0)))");
+    }
+
+    #[test]
     fn test_expr_add() {
         let expr = Expr::Add(Box::new(Expr::Num(1.0)), Box::new(Expr::Num(2.0)));
         assert_eq!(format!("{:?}", expr), "Add(Num(1.0), Num(2.0))");
