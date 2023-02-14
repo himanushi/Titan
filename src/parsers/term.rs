@@ -1,13 +1,7 @@
 use crate::parsers::expr::Expr;
 use crate::parsers::factor::parse_factor;
 
-use nom::{
-    branch::alt,
-    bytes::complete::tag,
-    multi::fold_many0,
-    sequence::{pair},
-    IResult,
-};
+use nom::{branch::alt, bytes::complete::tag, multi::fold_many0, sequence::pair, IResult};
 
 pub fn parse_term(input: &str) -> IResult<&str, Expr> {
     let (rest, lhs) = parse_factor(input)?;

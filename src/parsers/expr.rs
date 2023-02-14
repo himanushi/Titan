@@ -2,6 +2,7 @@
 pub enum Expr {
     Num(f64),
     Float(f64),
+    Paren(Box<Expr>),
     Add(Box<Expr>, Box<Expr>),
     Sub(Box<Expr>, Box<Expr>),
     Mul(Box<Expr>, Box<Expr>),
