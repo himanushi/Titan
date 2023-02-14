@@ -5,7 +5,7 @@ use crate::parsers::number::parse_number;
 use nom::{
     branch::alt,
     character::complete::{char, space0},
-    combinator::{map, opt, recognize},
+    combinator::map,
     sequence::delimited,
     IResult,
 };
