@@ -19,7 +19,7 @@ pub fn parse_factor(input: &str) -> IResult<&str, Expr> {
             }),
             space0,
         ),
-        parse_number,
+        delimited(space0, parse_number, space0),
     ))(input)
 }
 
