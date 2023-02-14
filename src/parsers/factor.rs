@@ -1,12 +1,12 @@
+use super::number::parse_number;
 use crate::parsers::expr::Expr;
 use crate::parsers::expression::parse_expression;
-use crate::parsers::number::parse_number;
 
 use nom::{
     branch::alt,
     character::complete::{char, space0},
     combinator::map,
-    sequence::delimited,
+    sequence::{delimited, preceded},
     IResult,
 };
 
@@ -14,9 +14,14 @@ pub fn parse_factor(input: &str) -> IResult<&str, Expr> {
     alt((
         delimited(
             space0,
-            map(delimited(char('('), parse_expression, char(')')), |expr| {
-                Expr::Paren(Box::new(expr))
-            }),
+            map(
+                delimited(
+                    char('('),
+                    preceded(space0, parse_expression),
+                    preceded(space0, char(')')),
+                ),
+                |expr| Expr::Paren(Box::new(expr)),
+            ),
             space0,
         ),
         delimited(space0, parse_number, space0),
@@ -50,6 +55,86 @@ mod tests {
         let expected_output = Ok((
             "",
             Paren(Box::new(Add(Box::new(Num(1.0)), Box::new(Num(2.0))))),
+        ));
+        let output = parse_factor(input);
+        assert_eq!(output, expected_output);
+    }
+
+    #[test]
+    fn test_parse_factor_paren_mult() {
+        let input = "(1 + 2) * 10";
+        let expected_output = Ok((
+            "",
+            Expr::Mul(
+                Box::new(Expr::Paren(Box::new(Expr::Add(
+                    Box::new(Expr::Num(1.0)),
+                    Box::new(Expr::Num(2.0)),
+                )))),
+                Box::new(Expr::Num(10.0)),
+            ),
+        ));
+        let output = parse_factor(input);
+        assert_eq!(
+            output.map(|(remaining, expr)| (remaining, expr.clone())),
+            expected_output
+        );
+    }
+
+    #[test]
+    fn test_parse_factor_mult_paren() {
+        let input = "10 * (1 + 2)";
+        let expected_output = Ok((
+            "",
+            Expr::Mul(
+                Box::new(Expr::Num(10.0)),
+                Box::new(Expr::Paren(Box::new(Expr::Add(
+                    Box::new(Expr::Num(1.0)),
+                    Box::new(Expr::Num(2.0)),
+                )))),
+            ),
+        ));
+        let output = parse_factor(input);
+        assert_eq!(output, expected_output);
+    }
+
+    #[test]
+    fn test_parse_factor_paren_mult_paren_mult() {
+        let input = "(1 + 2) * (2 * 3)";
+        let expected_output = Ok((
+            "",
+            Expr::Mul(
+                Box::new(Expr::Paren(Box::new(Expr::Add(
+                    Box::new(Expr::Num(1.0)),
+                    Box::new(Expr::Num(2.0)),
+                )))),
+                Box::new(Expr::Paren(Box::new(Expr::Mul(
+                    Box::new(Expr::Num(2.0)),
+                    Box::new(Expr::Num(3.0)),
+                )))),
+            ),
+        ));
+        let output = parse_factor(input);
+        assert_eq!(output, expected_output);
+    }
+
+    #[test]
+    fn test_parse_factor_paren_mult_paren_div() {
+        let input = "(1 + 2) * ((2 * 5) / 2)";
+        let expected_output = Ok((
+            "",
+            Expr::Mul(
+                Box::new(Expr::Paren(Box::new(Expr::Add(
+                    Box::new(Expr::Num(1.0)),
+                    Box::new(Expr::Num(2.0)),
+                )))),
+                Box::new(Expr::Paren(Box::new(Expr::Div(
+                    Box::new(Expr::Mul(
+                        Box::new(Expr::Num(2.0)),
+                        Box::new(Expr::Num(5.0)),
+                    )),
+                    Box::new(Expr::Num(2.0)),
+                )))),
+            ),
         ));
         let output = parse_factor(input);
         assert_eq!(output, expected_output);
