@@ -75,7 +75,7 @@ mod tests {
         ));
         let output = parse_factor(input);
         assert_eq!(
-            output.map(|(remaining, expr)| (remaining, expr.clone())),
+            output.map(|(remaining, expr)| (remaining, expr)),
             expected_output
         );
     }
