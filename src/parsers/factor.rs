@@ -6,23 +6,19 @@ use nom::{
     branch::alt,
     character::complete::{char, space0},
     combinator::map,
-    sequence::{delimited, preceded},
+    sequence::delimited,
     IResult,
 };
 
 pub fn parse_factor(input: &str) -> IResult<&str, Expr> {
     alt((
-        delimited(
-            space0,
-            map(
-                delimited(
-                    char('('),
-                    preceded(space0, parse_expression),
-                    preceded(space0, char(')')),
-                ),
-                |expr| Expr::Paren(Box::new(expr)),
+        map(
+            delimited(
+                space0,
+                delimited(char('('), parse_expression, char(')')),
+                space0,
             ),
-            space0,
+            |expr| Expr::Paren(Box::new(expr)),
         ),
         delimited(space0, parse_number, space0),
     ))(input)
@@ -74,10 +70,7 @@ mod tests {
             ),
         ));
         let output = parse_factor(input);
-        assert_eq!(
-            output.map(|(remaining, expr)| (remaining, expr)),
-            expected_output
-        );
+        assert_eq!(output, expected_output);
     }
 
     #[test]
