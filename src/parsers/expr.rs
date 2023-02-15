@@ -2,7 +2,7 @@
 pub enum Expr {
     Num(f64),
     Float(f64),
-    Paren(Box<Expr>),
+    Var(String),
     Add(Box<Expr>, Box<Expr>),
     Sub(Box<Expr>, Box<Expr>),
     Mul(Box<Expr>, Box<Expr>),
@@ -17,15 +17,6 @@ mod tests {
     fn test_expr_num() {
         let expr = Expr::Num(10.0);
         assert_eq!(format!("{:?}", expr), "Num(10.0)");
-    }
-
-    #[test]
-    fn test_expr_paren() {
-        let expr = Expr::Paren(Box::new(Expr::Add(
-            Box::new(Expr::Num(1.0)),
-            Box::new(Expr::Num(2.0)),
-        )));
-        assert_eq!(format!("{:?}", expr), "Paren(Add(Num(1.0), Num(2.0)))");
     }
 
     #[test]
