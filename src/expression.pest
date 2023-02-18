@@ -1,0 +1,27 @@
+// 数式を定義する
+expression = _{ term ~ (add / subtract ~ term)* }
+
+// 加算演算子を定義する
+add = _{ "+" }
+
+// 減算演算子を定義する
+subtract = _{ "-" }
+
+// 項を定義する
+term = _{ factor ~ (multiply / divide ~ factor)* }
+
+// 乗算演算子を定義する
+multiply = _{ "*" }
+
+// 除算演算子を定義する
+divide = _{ "/" }
+
+// 要素を定義する
+factor = _{ number / "(" ~ expression ~ ")" }
+
+// 数字を定義する
+number = @{ (["0".."9"])+ }
+
+#[derive(Parser)]
+#[grammar = "expression.pest"]
+struct ExpressionParser;
