@@ -1,1 +1,6 @@
-expression = { "/" }
+expression = _{ ident ~ (" " ~ ident)* }
+
+alpha = { 'a'..'z' | 'A'..'Z' }
+digit = { '0'..'9' }
+
+ident = { !digit ~ (alpha | digit)+ }
