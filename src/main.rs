@@ -16,7 +16,7 @@ fn main() {
 
     // 式をパースする
     let pairs =
-        ExpressionParser::parse(Rule::expression, &expression).unwrap_or_else(|e| panic!("{}", e));
+        ExpressionParser::parse(Rule::parser, &expression).unwrap_or_else(|e| panic!("{}", e));
 
     // パースした結果を表示する
     for pair in pairs {

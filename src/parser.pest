@@ -1,14 +1,15 @@
-expression = { __ ~ number ~ __ }
+parser = { __? ~ (number | string) ~ __? }
 
+// 除外
 SPACE = _{ " " }
 __ = _{ SPACE* }
 
-// 四則演算
-add = { "+" }
-sub = { "-" }
-mult = { "*" }
-div = { "/" }
-
 // 数字型
-number = { integer }
-integer = { "0" | "-"? ~ ('1'..'9') ~ ('0'..'9')* }
+number = { float | integer }
+float = { integer ~ "." ~ digit+ }
+integer = { "0" | "-"? ~ non_zero_digit ~ digit* }
+non_zero_digit = { '1'..'9' }
+digit = { '0'..'9' }
+
+// 文字列型
+string = { "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
