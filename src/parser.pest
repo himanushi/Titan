@@ -5,9 +5,8 @@ SPACE = _{ " " }
 __ = _{ SPACE* }
 
 // 変数
-ident = { (('a'..'z') | ('A'..'Z') | ("_") | ('0'..'9'))+ }
-variable_declaration = { ident ~ __ ~ (":" | "=") ~ __ ~ expression }
-expression = { __? ~ (number | string) ~ __? }
+// ident = { (('a'..'z') | ('A'..'Z') | ("_") | ('0'..'9'))* }
+// variable_declaration = ident _ (":" / "=") _ expression
 
 // 数字型
 number = { float | integer }
